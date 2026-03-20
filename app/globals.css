@@ -1,0 +1,108 @@
+@import "tailwindcss";
+@variant dark (&:where(.dark, .dark *));
+
+/* ── CSS Variables ── */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9f9f9;
+  --bg-sidebar: #f4f4f4;
+  --bg-message-user: #10a37f;
+  --bg-message-ai: #f0f0f0;
+  --text-primary: #111111;
+  --text-secondary: #6b6b6b;
+  --text-user-msg: #ffffff;
+  --text-ai-msg: #111111;
+  --border-color: #e5e5e5;
+  --input-bg: #ffffff;
+  --hover-bg: #ebebeb;
+  --btn-bg: #10a37f;
+  --btn-text: #ffffff;
+  --scrollbar-thumb: #d1d1d1;
+  --code-bg: #1e1e2e;
+}
+
+.dark {
+  --bg-primary: #212121;
+  --bg-secondary: #2d2d2d;
+  --bg-sidebar: #171717;
+  --bg-message-user: #10a37f;
+  --bg-message-ai: #2f2f2f;
+  --text-primary: #ececec;
+  --text-secondary: #8e8ea0;
+  --text-user-msg: #ffffff;
+  --text-ai-msg: #ececec;
+  --border-color: #3d3d3d;
+  --input-bg: #2d2d2d;
+  --hover-bg: #2a2a2a;
+  --btn-bg: #10a37f;
+  --btn-text: #ffffff;
+  --scrollbar-thumb: #555555;
+  --code-bg: #1e1e2e;
+}
+
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 9999px;
+}
+
+/* ── Animations ── */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes bounce-dot {
+  0%, 80%, 100% { transform: translateY(0); }
+  40%           { transform: translateY(-6px); }
+}
+
+.msg-enter {
+  animation: fadeSlideUp 0.35s ease forwards;
+}
+
+.dot-bounce {
+  animation: bounce-dot 1.2s infinite ease-in-out;
+}
+.dot-bounce:nth-child(2) { animation-delay: 0.15s; }
+.dot-bounce:nth-child(3) { animation-delay: 0.3s; }
+
+/* ── Markdown styles ── */
+.prose-ai p { margin: 0.4rem 0; line-height: 1.7; }
+.prose-ai ul, .prose-ai ol { padding-left: 1.25rem; margin: 0.4rem 0; }
+.prose-ai li { margin: 0.2rem 0; }
+.prose-ai h1,.prose-ai h2,.prose-ai h3 { font-weight: 700; margin: 0.75rem 0 0.4rem; }
+.prose-ai strong { font-weight: 700; }
+.prose-ai em { font-style: italic; }
+.prose-ai code {
+  background: rgba(0,0,0,0.08);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.875em;
+  font-family: 'Fira Code', monospace;
+}
+.dark .prose-ai code { background: rgba(255,255,255,0.1); }
+.prose-ai pre { margin: 0.5rem 0; border-radius: 8px; overflow: hidden; }
+.prose-ai table { border-collapse: collapse; width: 100%; margin: 0.5rem 0; }
+.prose-ai th, .prose-ai td { border: 1px solid var(--border-color); padding: 0.4rem 0.75rem; }
+.prose-ai a { color: #10a37f; text-decoration: underline; }
+.prose-ai blockquote {
+  border-left: 3px solid var(--border-color);
+  margin: 0.5rem 0;
+  padding-left: 1rem;
+  color: var(--text-secondary);
+}
