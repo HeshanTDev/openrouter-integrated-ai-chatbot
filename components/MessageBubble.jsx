@@ -38,9 +38,9 @@ export default function MessageBubble({ message }) {
 
   if (isUser) {
     return (
-      <div className="flex justify-end items-start gap-3 msg-enter">
+      <div className="flex justify-end items-start gap-2 md:gap-3 msg-enter">
         <div
-          className="max-w-[75%] px-4 py-3 rounded-2xl rounded-tr-sm text-sm leading-relaxed"
+          className="max-w-[85%] md:max-w-[75%] px-3 md:px-4 py-2 md:py-3 rounded-2xl rounded-tr-sm text-sm leading-relaxed"
           style={{
             background: "var(--bg-message-user)",
             color: "var(--text-user-msg)",
@@ -60,10 +60,10 @@ export default function MessageBubble({ message }) {
   }
 
   return (
-    <div className="flex items-start gap-3 msg-enter">
+    <div className="flex items-start gap-2 md:gap-3 msg-enter">
       {/* AI Avatar */}
       <div
-        className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold"
+        className="w-7 h-7 md:w-8 md:h-8 rounded-full flex items-center justify-center shrink-0 mt-0.5 text-[10px] md:text-xs font-bold"
         style={{ background: "#10a37f", color: "#fff" }}
       >
         AI
@@ -71,7 +71,7 @@ export default function MessageBubble({ message }) {
 
       <div className="flex flex-col gap-1.5 min-w-0 flex-1">
         <div
-          className="px-4 py-3 rounded-2xl rounded-tl-sm text-sm"
+          className="px-3 md:px-4 py-2 md:py-3 rounded-2xl rounded-tl-sm text-sm"
           style={{
             background: "var(--bg-message-ai)",
             color: "var(--text-ai-msg)",

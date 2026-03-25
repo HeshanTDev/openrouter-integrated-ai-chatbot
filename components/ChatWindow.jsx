@@ -141,34 +141,47 @@ export default function ChatWindow({
     <div className="flex flex-col h-full" style={{ background: "var(--bg-primary)" }}>
       {/* Top Bar */}
       <header
-        className="flex items-center justify-between px-4 py-3 border-b shrink-0"
+        className="flex items-center justify-between px-3 md:px-4 py-2 md:py-3 border-b shrink-0 h-14 md:h-16"
         style={{ borderColor: "var(--border-color)" }}
       >
-        <button
-          onClick={onToggleSidebar}
-          className="p-2 rounded-xl md:hidden transition-colors"
-          style={{ color: "var(--text-secondary)" }}
-        >
-          <Menu size={20} />
-        </button>
         <div className="flex items-center gap-2">
-          <Sparkles size={16} style={{ color: "#10a37f" }} />
-          <span className="text-sm font-medium" style={{ color: "var(--text-primary)" }}>
-            {modelName}
-          </span>
-        </div>
-        {!isEmpty && (
           <button
-            onClick={clearChat}
-            title="Clear chat"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs transition-colors"
-            style={{ color: "#ef4444", background: "rgba(239,68,68,0.08)" }}
+            onClick={onToggleSidebar}
+            className="p-2 rounded-xl md:hidden transition-colors"
+            style={{ color: "var(--text-secondary)" }}
           >
-            <Trash2 size={13} />
-            Clear
+            <Menu size={20} />
           </button>
-        )}
-        {isEmpty && <div className="w-8 hidden md:block" />}
+          <div className="flex items-center gap-2">
+            <Sparkles size={16} className="hidden sm:block" style={{ color: "#10a37f" }} />
+            <span className="text-sm font-medium truncate max-w-[150px] md:max-w-none" style={{ color: "var(--text-primary)" }}>
+              {modelName}
+            </span>
+          </div>
+        </div>
+        
+        <div className="flex items-center gap-2">
+          {!isEmpty && (
+            <button
+              onClick={clearChat}
+              title="Clear chat"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs transition-colors"
+              style={{ color: "#ef4444", background: "rgba(239,68,68,0.08)" }}
+            >
+              <Trash2 size={13} />
+              <span className="hidden sm:inline">Clear</span>
+            </button>
+          )}
+          {isEmpty && (
+             <button
+                onClick={onNewChat}
+                className="p-2 rounded-xl md:hidden transition-colors"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                <Plus size={18} />
+              </button>
+          )}
+        </div>
       </header>
 
       {/* Messages area */}
@@ -210,7 +223,7 @@ export default function ChatWindow({
             </div>
           </div>
         ) : (
-          <div className="max-w-3xl mx-auto w-full px-4 py-6 space-y-6">
+          <div className="max-w-3xl mx-auto w-full px-3 md:px-4 py-4 md:py-6 space-y-4 md:space-y-6">
             {messages.map((msg) => (
               <MessageBubble key={msg.id} message={msg} />
             ))}
@@ -234,11 +247,11 @@ export default function ChatWindow({
 
       {/* Input area */}
       <div
-        className="shrink-0 border-t px-4 py-4"
+        className="shrink-0 border-t px-2 pb-2 pt-2 md:px-4 md:pb-4 md:pt-0"
         style={{ borderColor: "var(--border-color)", background: "var(--bg-primary)" }}
       >
         <div
-          className="flex items-end gap-3 max-w-3xl mx-auto rounded-2xl border px-4 py-3 shadow-sm transition-all duration-200 focus-within:shadow-md"
+          className="flex items-end gap-2 md:gap-3 max-w-3xl mx-auto rounded-2xl border px-3 py-2 md:px-4 md:py-3 shadow-sm transition-all duration-200 focus-within:border-[#10a37f] focus-within:shadow-md"
           style={{
             background: "var(--input-bg)",
             borderColor: "var(--border-color)",
@@ -251,7 +264,7 @@ export default function ChatWindow({
             onKeyDown={handleKeyDown}
             placeholder="Message AI Chat..."
             rows={1}
-            className="flex-1 resize-none bg-transparent outline-none text-sm leading-relaxed"
+            className="flex-1 resize-none bg-transparent outline-none text-sm md:text-base leading-relaxed py-1"
             style={{
               color: "var(--text-primary)",
               maxHeight: "160px",
@@ -262,16 +275,16 @@ export default function ChatWindow({
           <button
             onClick={() => sendMessage(input)}
             disabled={!input.trim() || isLoading}
-            className="p-2 rounded-xl transition-all duration-200 shrink-0 disabled:opacity-40 hover:scale-105"
+            className="p-2 rounded-xl transition-all duration-200 shrink-0 disabled:opacity-40 hover:scale-105 mb-0.5"
             style={{
               background: !input.trim() || isLoading ? "var(--hover-bg)" : "#10a37f",
               color: !input.trim() || isLoading ? "var(--text-secondary)" : "#fff",
             }}
           >
-            <SendHorizonal size={16} />
+            <SendHorizonal size={18} />
           </button>
         </div>
-        <p className="text-center text-xs mt-2" style={{ color: "var(--text-secondary)" }}>
+        <p className="text-center text-[10px] md:text-xs mt-2" style={{ color: "var(--text-secondary)" }}>
           AI Chat can make mistakes. Verify important information.
         </p>
       </div>

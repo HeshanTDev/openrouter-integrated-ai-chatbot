@@ -84,12 +84,12 @@ export default function Sidebar({
             No previous chats
           </p>
         ) : (
-          <ul className="space-y-1">
+          <ul className="space-y-0.5 md:space-y-1">
             {chats.map((chat) => (
               <li key={chat.id}>
                 <button
                   onClick={() => onSelectChat(chat.id)}
-                  className="group flex items-center gap-2 w-full px-3 py-2.5 rounded-xl text-sm text-left transition-all duration-150"
+                  className="group flex items-center gap-2 w-full px-2.5 md:px-3 py-2 md:py-2.5 rounded-xl text-sm text-left transition-all duration-150"
                   style={{
                     background: activeChatId === chat.id ? "var(--hover-bg)" : "transparent",
                     color: "var(--text-primary)",
@@ -106,7 +106,7 @@ export default function Sidebar({
                   <MessageSquare size={14} className="shrink-0" style={{ color: "var(--text-secondary)" }} />
                   <span className="flex-1 truncate">{chat.title}</span>
                   <span
-                    className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0"
+                    className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0 p-1 hover:bg-red-500/10 rounded-md"
                     onClick={(e) => {
                       e.stopPropagation();
                       onDeleteChat(chat.id);
