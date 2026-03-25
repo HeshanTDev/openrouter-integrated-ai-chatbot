@@ -38,7 +38,7 @@ export default function Sidebar({
         style={{ borderColor: "var(--border-color)" }}
       >
         <span className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>
-          AI Chat
+          NeoChat
         </span>
         {/* Mobile close */}
         <button

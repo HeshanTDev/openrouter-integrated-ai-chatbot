@@ -8,10 +8,10 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "AI Chat — OpenRouter",
-  description: "A modern ChatGPT-like AI chat powered by OpenRouter",
+  title: "NeoChat — OpenRouter",
+  description: "A modern, high-performance AI chat powered by OpenRouter",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/icon.png",
   },
 };
 

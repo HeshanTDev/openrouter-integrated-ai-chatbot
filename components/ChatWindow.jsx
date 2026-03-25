@@ -262,7 +262,7 @@ export default function ChatWindow({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Message AI Chat..."
+            placeholder="Message NeoChat..."
             rows={1}
             className="flex-1 resize-none bg-transparent outline-none text-sm md:text-base leading-relaxed py-1"
             style={{
@@ -285,7 +285,7 @@ export default function ChatWindow({
           </button>
         </div>
         <p className="text-center text-[10px] md:text-xs mt-2" style={{ color: "var(--text-secondary)" }}>
-          AI Chat can make mistakes. Verify important information.
+          NeoChat can make mistakes. Verify important information.
         </p>
       </div>
     </div>
