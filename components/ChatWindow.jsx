@@ -143,7 +143,7 @@ export default function ChatWindow({
     <div className="flex flex-col h-full bg-[var(--bg-primary)]">
       {/* Top Bar */}
       <header
-        className="flex items-center justify-between px-4 md:px-6 py-3 md:py-4 border-b shrink-0 glassmorphism relative z-10 shadow-sm"
+        className="flex items-center justify-between px-4 md:px-6 h-[70px] border-b shrink-0 glassmorphism relative z-10 shadow-sm"
         style={{ borderColor: "var(--border-color)", borderBottomWidth: "1px" }}
       >
         <div className="flex items-center gap-3">
@@ -269,9 +269,9 @@ export default function ChatWindow({
       {/* Input area */}
       <div className="shrink-0 relative">
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] to-transparent pointer-events-none -top-12 h-12" />
-        <div className="px-3 pb-4 md:px-6 md:pb-6 relative z-10 glassmorphism rounded-t-3xl pt-2">
+        <div className="px-3 pb-3 md:px-6 md:pb-4 relative z-10 glassmorphism rounded-t-3xl pt-1">
           <div
-            className="flex items-end gap-3 max-w-4xl mx-auto rounded-3xl border px-4 py-3 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 focus-within:ring-2 focus-within:ring-[#10b981]/50"
+            className="flex items-end gap-3 max-w-4xl mx-auto rounded-3xl border px-4 py-2 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 focus-within:ring-2 focus-within:ring-[#10b981]/50"
             style={{
               background: "var(--input-bg)",
               borderColor: "var(--border-color)",
@@ -284,7 +284,7 @@ export default function ChatWindow({
               onKeyDown={handleKeyDown}
               placeholder="Message NeoChat..."
               rows={1}
-              className="flex-1 resize-none bg-transparent outline-none text-[15px] leading-relaxed py-2 md:py-3 px-2 custom-scrollbar"
+              className="flex-1 resize-none bg-transparent outline-none text-[15px] leading-relaxed py-1.5 md:py-2 px-2 custom-scrollbar"
               style={{
                 color: "var(--text-primary)",
                 maxHeight: "200px",
@@ -296,7 +296,7 @@ export default function ChatWindow({
               type="button"
               onClick={() => sendMessage(input)}
               disabled={!input.trim() || isLoading}
-              className="p-3 mb-1 rounded-2xl transition-all duration-300 shrink-0 disabled:opacity-50 disabled:scale-100 hover:scale-[1.05] shadow-sm hover:shadow-md active:scale-95"
+              className="p-2 mb-1 rounded-2xl transition-all duration-300 shrink-0 disabled:opacity-50 disabled:scale-100 hover:scale-[1.05] shadow-sm hover:shadow-md active:scale-95"
               style={{
                 background: !input.trim() || isLoading ? "var(--hover-bg)" : "var(--btn-bg)",
                 color: !input.trim() || isLoading ? "var(--text-secondary)" : "#fff",

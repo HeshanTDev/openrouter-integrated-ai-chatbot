@@ -17,7 +17,7 @@ export default function Sidebar({
     >
       {/* Header */}
       <div
-        className="flex items-center justify-between px-5 py-5 border-b"
+        className="flex items-center justify-between px-5 h-[70px] border-b"
         style={{ borderColor: "var(--border-color)", background: "var(--bg-secondary)" }}
       >
         <div className="flex items-center gap-2">
