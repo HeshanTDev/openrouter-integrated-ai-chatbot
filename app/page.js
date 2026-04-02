@@ -116,9 +116,9 @@ export default function Home() {
     return (
       <div className="flex h-screen items-center justify-center bg-[var(--bg-primary)]">
         <div className="flex gap-2">
-          <span className="dot-bounce w-2.5 h-2.5 rounded-full bg-blue-500" />
-          <span className="dot-bounce w-2.5 h-2.5 rounded-full bg-sky-400" />
-          <span className="dot-bounce w-2.5 h-2.5 rounded-full bg-blue-400" />
+          <span className="dot-bounce w-2.5 h-2.5 rounded-full bg-emerald-500" />
+          <span className="dot-bounce w-2.5 h-2.5 rounded-full bg-green-400" />
+          <span className="dot-bounce w-2.5 h-2.5 rounded-full bg-emerald-400" />
         </div>
       </div>
     );
