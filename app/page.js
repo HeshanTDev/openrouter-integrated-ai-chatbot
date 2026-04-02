@@ -114,11 +114,11 @@ export default function Home() {
 
   if (!mounted) {
     return (
-      <div className="flex h-screen items-center justify-center" style={{ background: "var(--bg-primary)" }}>
-        <div className="flex gap-1.5">
-          <span className="dot-bounce w-2 h-2 rounded-full" style={{ background: "#10a37f" }} />
-          <span className="dot-bounce w-2 h-2 rounded-full" style={{ background: "#10a37f" }} />
-          <span className="dot-bounce w-2 h-2 rounded-full" style={{ background: "#10a37f" }} />
+      <div className="flex h-screen items-center justify-center bg-[var(--bg-primary)]">
+        <div className="flex gap-2">
+          <span className="dot-bounce w-2.5 h-2.5 rounded-full bg-blue-500" />
+          <span className="dot-bounce w-2.5 h-2.5 rounded-full bg-sky-400" />
+          <span className="dot-bounce w-2.5 h-2.5 rounded-full bg-blue-400" />
         </div>
       </div>
     );

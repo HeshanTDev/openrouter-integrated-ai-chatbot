@@ -65,7 +65,7 @@ export default function ModelSelector({ model, models, onModelChange }) {
             >
               <span className="flex-1 truncate">{m.name}</span>
               {m.id === model && (
-                <span className="ml-2 w-1.5 h-1.5 rounded-full shrink-0" style={{ background: "#10a37f" }} />
+                <span className="ml-2 w-2 h-2 rounded-full shrink-0 shadow-[0_0_8px_var(--shadow-glow)]" style={{ background: "#38bdf8" }} />
               )}
             </button>
           ))}
