@@ -17,7 +17,7 @@ function generateId() {
 }
 
 export default function ChatWindow({
-  chat, model, models, onUpdateChat, onNewChat, onToggleSidebar,
+  chat, model, models, onUpdateChat, onNewChat, onCreateChatWithMessage, onToggleSidebar,
 }) {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -48,30 +48,19 @@ export default function ChatWindow({
 
       const userMsg = { id: generateId(), role: "user", content: content.trim() };
 
-      let targetChatId;
-      let historyMessages;
-
-      if (!chat) {
-        // Create a new chat on-the-fly
-        onNewChat();
-        // The onNewChat will trigger a state update; we'll handle this via the parent
-        // For simplicity, we rely on parent managing the activeChatId
-        // This branch is handled below when chat becomes available
-      }
-
-      // Collect existing messages + new user message
-      const prevMessages = chat?.messages || [];
-      historyMessages = [...prevMessages, userMsg];
-      targetChatId = chat?.id;
-
-      // Determine a title for the chat (use first user message)
-      const isFirstMessage = prevMessages.length === 0;
+      let targetChatId = chat?.id;
+      let historyMessages = [...(chat?.messages || []), userMsg];
+      
+      const isFirstMessage = !chat || (chat.messages || []).length === 0;
       const newTitle = isFirstMessage
         ? content.trim().slice(0, 40) + (content.length > 40 ? "…" : "")
         : chat?.title;
 
       // Update chat with user message
-      if (targetChatId) {
+      if (!targetChatId) {
+        targetChatId = generateId();
+        onCreateChatWithMessage(targetChatId, newTitle, historyMessages);
+      } else {
         onUpdateChat(targetChatId, (c) => ({
           ...c,
           title: newTitle || c.title,
@@ -108,18 +97,18 @@ export default function ChatWindow({
         }
       } catch (err) {
         setError(err.message || "Something went wrong. Please try again.");
-        // Remove the user message on error
         if (targetChatId) {
           onUpdateChat(targetChatId, (c) => ({
             ...c,
-            messages: c.messages.filter((m) => m.id !== userMsg.id),
+            // Only modify messages if the chat object exists, ensuring filter runs safely
+            messages: c.messages ? c.messages.filter((m) => m.id !== userMsg.id) : [],
           }));
         }
       } finally {
         setIsLoading(false);
       }
     },
-    [chat, model, isLoading, onUpdateChat, onNewChat]
+    [chat, model, isLoading, onUpdateChat, onCreateChatWithMessage]
   );
 
   const handleKeyDown = (e) => {
@@ -146,6 +135,7 @@ export default function ChatWindow({
       >
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={onToggleSidebar}
             className="p-2 rounded-xl md:hidden transition-colors"
             style={{ color: "var(--text-secondary)" }}
@@ -163,6 +153,7 @@ export default function ChatWindow({
         <div className="flex items-center gap-2">
           {!isEmpty && (
             <button
+              type="button"
               onClick={clearChat}
               title="Clear chat"
               className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs transition-colors"
@@ -174,6 +165,7 @@ export default function ChatWindow({
           )}
           {isEmpty && (
              <button
+                type="button"
                 onClick={onNewChat}
                 className="p-2 rounded-xl md:hidden transition-colors"
                 style={{ color: "var(--text-secondary)" }}
@@ -206,6 +198,7 @@ export default function ChatWindow({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-lg">
               {SUGGESTIONS.map((s) => (
                 <button
+                  type="button"
                   key={s}
                   onClick={() => sendMessage(s)}
                   className="text-sm text-left px-4 py-3 rounded-xl border transition-all duration-200 hover:scale-[1.02]"
@@ -273,6 +266,7 @@ export default function ChatWindow({
             disabled={isLoading}
           />
           <button
+            type="button"
             onClick={() => sendMessage(input)}
             disabled={!input.trim() || isLoading}
             className="p-2 rounded-xl transition-all duration-200 shrink-0 disabled:opacity-40 hover:scale-105 mb-0.5"

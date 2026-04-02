@@ -42,6 +42,7 @@ export default function Sidebar({
         </span>
         {/* Mobile close */}
         <button
+          type="button"
           onClick={onClose}
           className="md:hidden p-1 rounded-lg transition-colors"
           style={{ color: "var(--text-secondary)" }}
@@ -53,6 +54,7 @@ export default function Sidebar({
       {/* New Chat button */}
       <div className="px-3 py-3">
         <button
+          type="button"
           onClick={onNewChat}
           className="flex items-center gap-2 w-full px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 hover:scale-[1.01]"
           style={{
@@ -88,6 +90,7 @@ export default function Sidebar({
             {chats.map((chat) => (
               <li key={chat.id}>
                 <button
+                  type="button"
                   onClick={() => onSelectChat(chat.id)}
                   className="group flex items-center gap-2 w-full px-2.5 md:px-3 py-2 md:py-2.5 rounded-xl text-sm text-left transition-all duration-150"
                   style={{
@@ -127,6 +130,7 @@ export default function Sidebar({
         style={{ borderColor: "var(--border-color)" }}
       >
         <button
+          type="button"
           onClick={toggleTheme}
           className="flex items-center gap-2 text-sm transition-colors"
           style={{ color: "var(--text-secondary)" }}

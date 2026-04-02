@@ -63,6 +63,16 @@ export default function Home() {
     localStorage.setItem("selectedModel", model);
   }, [model, mounted]);
 
+  // Fix activeChatId if the selected chat was deleted
+  useEffect(() => {
+    if (!mounted || !activeChatId) return;
+    if (chats.length === 0) {
+      setActiveChatId(null);
+    } else if (!chats.find((c) => c.id === activeChatId)) {
+      setActiveChatId(chats[0].id);
+    }
+  }, [chats, activeChatId, mounted]);
+
   const activeChat = chats.find((c) => c.id === activeChatId) || null;
 
   const createNewChat = useCallback(() => {
@@ -79,16 +89,22 @@ export default function Home() {
 
   const deleteChat = useCallback(
     (chatId) => {
-      setChats((prev) => {
-        const updated = prev.filter((c) => c.id !== chatId);
-        if (activeChatId === chatId) {
-          setActiveChatId(updated.length > 0 ? updated[0].id : null);
-        }
-        return updated;
-      });
+      setChats((prev) => prev.filter((c) => c.id !== chatId));
     },
-    [activeChatId]
+    []
   );
+
+  const createChatWithMessage = useCallback((targetChatId, title, initialMessages) => {
+    const newChat = {
+      id: targetChatId,
+      title: title,
+      messages: initialMessages,
+      createdAt: Date.now(),
+    };
+    setChats((prev) => [newChat, ...prev]);
+    setActiveChatId(targetChatId);
+    setSidebarOpen(false);
+  }, []);
 
   const updateChat = useCallback((chatId, updater) => {
     setChats((prev) =>
@@ -145,12 +161,13 @@ export default function Home() {
       {/* Main chat area */}
       <div className="flex-1 flex flex-col min-w-0 h-full">
         <ChatWindow
-          key={activeChatId}
+          key={activeChatId || "new-chat"}
           chat={activeChat}
           model={model}
           models={MODELS}
           onUpdateChat={updateChat}
           onNewChat={createNewChat}
+          onCreateChatWithMessage={createChatWithMessage}
           onToggleSidebar={() => setSidebarOpen((p) => !p)}
         />
       </div>
