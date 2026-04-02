@@ -3,13 +3,13 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import MessageBubble from "./MessageBubble";
 import TypingIndicator from "./TypingIndicator";
-import { SendHorizonal, Menu, Trash2, Sparkles } from "lucide-react";
+import { SendHorizonal, Menu, Trash2, Sparkles, Zap, Code, Mail } from "lucide-react";
 
 const SUGGESTIONS = [
-  "Explain quantum computing in simple terms",
-  "Write a Python script to scrape a website",
-  "Help me draft an email to my boss",
-  "What are some healthy dinner recipes?",
+  { icon: <Zap size={16}/>, text: "Explain quantum computing in simple terms" },
+  { icon: <Code size={16}/>, text: "Write a Python script to scrape a website" },
+  { icon: <Mail size={16}/>, text: "Help me draft a professional email to my boss" },
+  { icon: <Sparkles size={16}/>, text: "What are some healthy dinner recipes?" },
 ];
 
 function generateId() {
@@ -56,7 +56,7 @@ export default function ChatWindow({
         ? content.trim().slice(0, 40) + (content.length > 40 ? "…" : "")
         : chat?.title;
 
-      // Update chat with user message
+      // Update chat with user message securely
       if (!targetChatId) {
         targetChatId = generateId();
         onCreateChatWithMessage(targetChatId, newTitle, historyMessages);
@@ -100,7 +100,6 @@ export default function ChatWindow({
         if (targetChatId) {
           onUpdateChat(targetChatId, (c) => ({
             ...c,
-            // Only modify messages if the chat object exists, ensuring filter runs safely
             messages: c.messages ? c.messages.filter((m) => m.id !== userMsg.id) : [],
           }));
         }
@@ -127,24 +126,24 @@ export default function ChatWindow({
   const isEmpty = messages.length === 0;
 
   return (
-    <div className="flex flex-col h-full" style={{ background: "var(--bg-primary)" }}>
+    <div className="flex flex-col h-full bg-[var(--bg-primary)]">
       {/* Top Bar */}
       <header
-        className="flex items-center justify-between px-3 md:px-4 py-2 md:py-3 border-b shrink-0 h-14 md:h-16"
-        style={{ borderColor: "var(--border-color)" }}
+        className="flex items-center justify-between px-4 md:px-6 py-3 md:py-4 border-b shrink-0 glassmorphism relative z-10 shadow-sm"
+        style={{ borderColor: "var(--border-color)", borderBottomWidth: "1px" }}
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={onToggleSidebar}
-            className="p-2 rounded-xl md:hidden transition-colors"
-            style={{ color: "var(--text-secondary)" }}
+            className="p-2 rounded-xl md:hidden transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+            style={{ color: "var(--text-primary)" }}
           >
-            <Menu size={20} />
+            <Menu size={22} />
           </button>
-          <div className="flex items-center gap-2">
-            <Sparkles size={16} className="hidden sm:block" style={{ color: "#10a37f" }} />
-            <span className="text-sm font-medium truncate max-w-[150px] md:max-w-none" style={{ color: "var(--text-primary)" }}>
+          <div className="flex items-center gap-2.5">
+            <div className="w-2 h-2 rounded-full shadow-[0_0_8px_var(--shadow-glow)]" style={{ background: "#38bdf8" }} />
+            <span className="text-[15px] font-semibold tracking-tight truncate max-w-[150px] md:max-w-none" style={{ color: "var(--text-primary)" }}>
               {modelName}
             </span>
           </div>
@@ -156,131 +155,135 @@ export default function ChatWindow({
               type="button"
               onClick={clearChat}
               title="Clear chat"
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs transition-colors"
-              style={{ color: "#ef4444", background: "rgba(239,68,68,0.08)" }}
+              className="group flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 border"
+              style={{ 
+                color: "#ef4444", 
+                borderColor: "rgba(239, 68, 68, 0.2)",
+                background: "rgba(239, 68, 68, 0.05)" 
+              }}
             >
-              <Trash2 size={13} />
-              <span className="hidden sm:inline">Clear</span>
+              <Trash2 size={14} className="group-hover:scale-110 transition-transform" />
+              <span className="hidden sm:inline">Clear Chat</span>
             </button>
-          )}
-          {isEmpty && (
-             <button
-                type="button"
-                onClick={onNewChat}
-                className="p-2 rounded-xl md:hidden transition-colors"
-                style={{ color: "var(--text-secondary)" }}
-              >
-                <Plus size={18} />
-              </button>
           )}
         </div>
       </header>
 
       {/* Messages area */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto w-full flex flex-col relative">
         {isEmpty ? (
           /* Welcome screen */
-          <div className="flex flex-col items-center justify-center h-full px-4 text-center">
+          <div className="flex-1 flex flex-col items-center justify-center h-full px-5 text-center mt-[-40px]">
             <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-lg"
-              style={{ background: "linear-gradient(135deg, #10a37f, #0d8a6a)" }}
+              className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-xl shadow-blue-500/20"
+              style={{ background: "var(--bg-message-user)" }}
             >
-              <Sparkles size={26} color="#fff" />
+              <Sparkles size={32} color="#fff" />
             </div>
-            <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text-primary)" }}>
-              How can I help you today?
+            <h1 className="text-3xl font-extrabold mb-3 tracking-tight" style={{ color: "var(--text-primary)" }}>
+              How can I assist you today?
             </h1>
-            <p className="text-sm mb-8" style={{ color: "var(--text-secondary)" }}>
-              Experience the power of advanced AI models. Selected:{" "}
-              <span className="font-semibold" style={{ color: "#10a37f" }}>{modelName}</span>
+            <p className="text-base mb-10 max-w-md mx-auto" style={{ color: "var(--text-secondary)" }}>
+              Experience the power of advanced AI models. Currently using{" "}
+              <span className="font-semibold text-[#0ea5e9] dark:text-[#38bdf8]">{modelName}</span>
             </p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-lg">
-              {SUGGESTIONS.map((s) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
+              {SUGGESTIONS.map((s, idx) => (
                 <button
                   type="button"
-                  key={s}
-                  onClick={() => sendMessage(s)}
-                  className="text-sm text-left px-4 py-3 rounded-xl border transition-all duration-200 hover:scale-[1.02]"
+                  key={idx}
+                  onClick={() => sendMessage(s.text)}
+                  className="flex items-start gap-3 text-sm text-left px-5 py-4 rounded-2xl border transition-all duration-300 hover:scale-[1.03] hover:shadow-lg focus:outline-none"
                   style={{
-                    background: "var(--bg-secondary)",
+                    background: "var(--bg-sidebar)",
                     borderColor: "var(--border-color)",
                     color: "var(--text-primary)",
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = "#10a37f")}
-                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = "var(--border-color)")}
+                  onMouseEnter={(e) => {
+                     e.currentTarget.style.borderColor = "#38bdf8";
+                     e.currentTarget.style.boxShadow = "0 8px 30px rgba(56, 189, 248, 0.1)";
+                  }}
+                  onMouseLeave={(e) => {
+                     e.currentTarget.style.borderColor = "var(--border-color)";
+                     e.currentTarget.style.boxShadow = "none";
+                  }}
                 >
-                  {s}
+                  <div className="p-2 rounded-lg bg-black/5 dark:bg-white/10 shrink-0 text-[#0ea5e9] dark:text-[#38bdf8]">
+                    {s.icon}
+                  </div>
+                  <span className="font-medium leading-snug">{s.text}</span>
                 </button>
               ))}
             </div>
           </div>
         ) : (
-          <div className="max-w-3xl mx-auto w-full px-3 md:px-4 py-4 md:py-6 space-y-4 md:space-y-6">
+          <div className="max-w-4xl mx-auto w-full px-4 md:px-8 py-6 md:py-8 space-y-6 md:space-y-8 mb-4">
             {messages.map((msg) => (
               <MessageBubble key={msg.id} message={msg} />
             ))}
             {isLoading && <TypingIndicator />}
             {error && (
               <div
-                className="text-sm px-4 py-3 rounded-xl border msg-enter"
+                className="text-sm px-5 py-4 rounded-xl border msg-enter font-medium shadow-sm"
                 style={{
                   color: "#ef4444",
-                  background: "rgba(239,68,68,0.08)",
-                  borderColor: "rgba(239,68,68,0.2)",
+                  background: "rgba(239, 68, 68, 0.05)",
+                  borderColor: "rgba(239, 68, 68, 0.2)",
+                  borderLeftWidth: "4px"
                 }}
               >
                 ⚠️ {error}
               </div>
             )}
-            <div ref={bottomRef} />
+            <div ref={bottomRef} className="h-4" />
           </div>
         )}
       </div>
 
       {/* Input area */}
-      <div
-        className="shrink-0 border-t px-2 pb-2 pt-2 md:px-4 md:pb-4 md:pt-0"
-        style={{ borderColor: "var(--border-color)", background: "var(--bg-primary)" }}
-      >
-        <div
-          className="flex items-end gap-2 md:gap-3 max-w-3xl mx-auto rounded-2xl border px-3 py-2 md:px-4 md:py-3 shadow-sm transition-all duration-200 focus-within:border-[#10a37f] focus-within:shadow-md"
-          style={{
-            background: "var(--input-bg)",
-            borderColor: "var(--border-color)",
-          }}
-        >
-          <textarea
-            ref={textareaRef}
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Message NeoChat..."
-            rows={1}
-            className="flex-1 resize-none bg-transparent outline-none text-sm md:text-base leading-relaxed py-1"
+      <div className="shrink-0 relative">
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] to-transparent pointer-events-none -top-12 h-12" />
+        <div className="px-3 pb-4 md:px-6 md:pb-6 relative z-10 glassmorphism rounded-t-3xl pt-2">
+          <div
+            className="flex items-end gap-3 max-w-4xl mx-auto rounded-3xl border px-4 py-3 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 focus-within:ring-2 focus-within:ring-[#38bdf8]/50"
             style={{
-              color: "var(--text-primary)",
-              maxHeight: "160px",
-              overflowY: "auto",
-            }}
-            disabled={isLoading}
-          />
-          <button
-            type="button"
-            onClick={() => sendMessage(input)}
-            disabled={!input.trim() || isLoading}
-            className="p-2 rounded-xl transition-all duration-200 shrink-0 disabled:opacity-40 hover:scale-105 mb-0.5"
-            style={{
-              background: !input.trim() || isLoading ? "var(--hover-bg)" : "#10a37f",
-              color: !input.trim() || isLoading ? "var(--text-secondary)" : "#fff",
+              background: "var(--input-bg)",
+              borderColor: "var(--border-color)",
             }}
           >
-            <SendHorizonal size={18} />
-          </button>
+            <textarea
+              ref={textareaRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Message NeoChat..."
+              rows={1}
+              className="flex-1 resize-none bg-transparent outline-none text-[15px] leading-relaxed py-2 md:py-3 px-2 custom-scrollbar"
+              style={{
+                color: "var(--text-primary)",
+                maxHeight: "200px",
+                overflowY: "auto",
+              }}
+              disabled={isLoading}
+            />
+            <button
+              type="button"
+              onClick={() => sendMessage(input)}
+              disabled={!input.trim() || isLoading}
+              className="p-3 mb-1 rounded-2xl transition-all duration-300 shrink-0 disabled:opacity-50 disabled:scale-100 hover:scale-[1.05] shadow-sm hover:shadow-md active:scale-95"
+              style={{
+                background: !input.trim() || isLoading ? "var(--hover-bg)" : "var(--btn-bg)",
+                color: !input.trim() || isLoading ? "var(--text-secondary)" : "#fff",
+              }}
+            >
+              <SendHorizonal size={20} />
+            </button>
+          </div>
+          <p className="text-center text-[11px] md:text-xs mt-3 font-medium opacity-70" style={{ color: "var(--text-secondary)" }}>
+            NeoChat is an experimental AI and can make mistakes. Verify important information.
+          </p>
         </div>
-        <p className="text-center text-[10px] md:text-xs mt-2" style={{ color: "var(--text-secondary)" }}>
-          NeoChat can make mistakes. Verify important information.
-        </p>
       </div>
     </div>
   );
