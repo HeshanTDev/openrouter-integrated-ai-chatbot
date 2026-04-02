@@ -6,7 +6,7 @@
   --bg-primary: #ffffff;
   --bg-secondary: #f4f4f5;
   --bg-sidebar: #fafafa;
-  --bg-message-user: linear-gradient(135deg, #0ea5e9, #2563eb);
+  --bg-message-user: linear-gradient(135deg, #10b981, #059669);
   --bg-message-ai: #f8fafc;
   --text-primary: #0f172a;
   --text-secondary: #64748b;
@@ -15,18 +15,18 @@
   --border-color: #e2e8f0;
   --input-bg: #ffffff;
   --hover-bg: #f1f5f9;
-  --btn-bg: linear-gradient(135deg, #0ea5e9, #2563eb);
+  --btn-bg: linear-gradient(135deg, #10b981, #059669);
   --btn-text: #ffffff;
   --scrollbar-thumb: #cbd5e1;
   --code-bg: #1e293b;
-  --shadow-glow: rgba(14, 165, 233, 0.4);
+  --shadow-glow: rgba(16, 185, 129, 0.4);
 }
 
 .dark {
   --bg-primary: #0f172a;
   --bg-secondary: #1e293b;
   --bg-sidebar: #020617;
-  --bg-message-user: linear-gradient(135deg, #38bdf8, #3b82f6);
+  --bg-message-user: linear-gradient(135deg, #34d399, #10b981);
   --bg-message-ai: #1e293b;
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
@@ -35,11 +35,11 @@
   --border-color: #334155;
   --input-bg: #1e293b;
   --hover-bg: #334155;
-  --btn-bg: linear-gradient(135deg, #38bdf8, #3b82f6);
+  --btn-bg: linear-gradient(135deg, #34d399, #10b981);
   --btn-text: #ffffff;
   --scrollbar-thumb: #475569;
   --code-bg: #0f172a;
-  --shadow-glow: rgba(56, 189, 248, 0.25);
+  --shadow-glow: rgba(52, 211, 153, 0.25);
 }
 
 /* ── Base ── */
@@ -107,15 +107,15 @@ html, body {
   padding: 0.2em 0.4em;
   font-size: 0.85em;
   font-family: 'Fira Code', monospace;
-  color: #0284c7;
+  color: #059669;
 }
-.dark .prose-ai code { color: #7dd3fc; }
+.dark .prose-ai code { color: #34d399; }
 .prose-ai pre { margin: 0.75rem 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--border-color); }
 .prose-ai table { border-collapse: collapse; width: 100%; margin: 0.75rem 0; border-radius: 8px; overflow: hidden; }
 .prose-ai th { background: var(--bg-secondary); }
 .prose-ai th, .prose-ai td { border: 1px solid var(--border-color); padding: 0.5rem 1rem; }
-.prose-ai a { color: #38bdf8; text-decoration: underline; text-underline-offset: 4px; transition: color 0.2s; }
-.prose-ai a:hover { color: #0284c7; }
+.prose-ai a { color: #10b981; text-decoration: underline; text-underline-offset: 4px; transition: color 0.2s; }
+.prose-ai a:hover { color: #059669; }
 .prose-ai blockquote {
   border-left: 4px solid var(--border-color);
   margin: 0.75rem 0;

@@ -37,7 +37,7 @@ export default function Sidebar({
         style={{ borderColor: "var(--border-color)", background: "var(--bg-secondary)" }}
       >
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-gradient-to-br from-sky-400 to-blue-600 shadow-md shadow-sky-500/30">
+          <div className="w-8 h-8 rounded-xl flex items-center justify-center bg-gradient-to-br from-emerald-400 to-green-600 shadow-md shadow-emerald-500/30">
             <Sparkles size={16} className="text-white" />
           </div>
           <span className="font-bold text-lg tracking-tight" style={{ color: "var(--text-primary)" }}>
@@ -60,7 +60,7 @@ export default function Sidebar({
         <button
           type="button"
           onClick={onNewChat}
-          className="group flex items-center justify-center gap-2 w-full px-4 py-3 rounded-2xl text-sm font-semibold transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40"
+          className="group flex items-center justify-center gap-2 w-full px-4 py-3 rounded-2xl text-sm font-semibold transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/40"
           style={{
             background: "var(--btn-bg)",
             color: "var(--btn-text)",
@@ -116,7 +116,7 @@ export default function Sidebar({
                   <MessageSquare 
                     size={16} 
                     className="shrink-0 transition-colors" 
-                    style={{ color: activeChatId === chat.id ? "#38bdf8" : "var(--text-secondary)" }} 
+                    style={{ color: activeChatId === chat.id ? "#10b981" : "var(--text-secondary)" }} 
                   />
                   <span className="flex-1 truncate pr-8 font-medium">{chat.title}</span>
                 </button>
@@ -147,7 +147,7 @@ export default function Sidebar({
         <button
           type="button"
           onClick={toggleTheme}
-          className="flex items-center gap-2.5 text-sm font-medium transition-colors hover:text-[#38bdf8]"
+          className="flex items-center gap-2.5 text-sm font-medium transition-colors hover:text-[#10b981]"
           style={{ color: "var(--text-secondary)" }}
         >
           {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}

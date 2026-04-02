@@ -142,7 +142,7 @@ export default function ChatWindow({
             <Menu size={22} />
           </button>
           <div className="flex items-center gap-2.5">
-            <div className="w-2 h-2 rounded-full shadow-[0_0_8px_var(--shadow-glow)]" style={{ background: "#38bdf8" }} />
+            <div className="w-2 h-2 rounded-full shadow-[0_0_8px_var(--shadow-glow)]" style={{ background: "#10b981" }} />
             <span className="text-[15px] font-semibold tracking-tight truncate max-w-[150px] md:max-w-none" style={{ color: "var(--text-primary)" }}>
               {modelName}
             </span>
@@ -175,7 +175,7 @@ export default function ChatWindow({
           /* Welcome screen */
           <div className="flex-1 flex flex-col items-center justify-center h-full px-5 text-center mt-[-40px]">
             <div
-              className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-xl shadow-blue-500/20"
+              className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 shadow-xl shadow-emerald-500/20"
               style={{ background: "var(--bg-message-user)" }}
             >
               <Sparkles size={32} color="#fff" />
@@ -185,7 +185,7 @@ export default function ChatWindow({
             </h1>
             <p className="text-base mb-10 max-w-md mx-auto" style={{ color: "var(--text-secondary)" }}>
               Experience the power of advanced AI models. Currently using{" "}
-              <span className="font-semibold text-[#0ea5e9] dark:text-[#38bdf8]">{modelName}</span>
+              <span className="font-semibold text-[#10b981] dark:text-[#34d399]">{modelName}</span>
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
@@ -201,15 +201,15 @@ export default function ChatWindow({
                     color: "var(--text-primary)",
                   }}
                   onMouseEnter={(e) => {
-                     e.currentTarget.style.borderColor = "#38bdf8";
-                     e.currentTarget.style.boxShadow = "0 8px 30px rgba(56, 189, 248, 0.1)";
+                     e.currentTarget.style.borderColor = "#10b981";
+                     e.currentTarget.style.boxShadow = "0 8px 30px rgba(16, 185, 129, 0.1)";
                   }}
                   onMouseLeave={(e) => {
                      e.currentTarget.style.borderColor = "var(--border-color)";
                      e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  <div className="p-2 rounded-lg bg-black/5 dark:bg-white/10 shrink-0 text-[#0ea5e9] dark:text-[#38bdf8]">
+                  <div className="p-2 rounded-lg bg-black/5 dark:bg-white/10 shrink-0 text-[#10b981] dark:text-[#34d399]">
                     {s.icon}
                   </div>
                   <span className="font-medium leading-snug">{s.text}</span>
@@ -246,7 +246,7 @@ export default function ChatWindow({
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] to-transparent pointer-events-none -top-12 h-12" />
         <div className="px-3 pb-4 md:px-6 md:pb-6 relative z-10 glassmorphism rounded-t-3xl pt-2">
           <div
-            className="flex items-end gap-3 max-w-4xl mx-auto rounded-3xl border px-4 py-3 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 focus-within:ring-2 focus-within:ring-[#38bdf8]/50"
+            className="flex items-end gap-3 max-w-4xl mx-auto rounded-3xl border px-4 py-3 shadow-[0_4px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 focus-within:ring-2 focus-within:ring-[#10b981]/50"
             style={{
               background: "var(--input-bg)",
               borderColor: "var(--border-color)",
