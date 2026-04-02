@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import MessageBubble from "./MessageBubble";
 import TypingIndicator from "./TypingIndicator";
-import { SendHorizonal, Menu, Trash2, Sparkles, Zap, Code, Mail } from "lucide-react";
+import { SendHorizonal, Menu, Trash2, Sparkles, Zap, Code, Mail, Sun, Moon } from "lucide-react";
 
 const SUGGESTIONS = [
   { icon: <Zap size={16}/>, text: "Explain quantum computing in simple terms" },
@@ -22,8 +22,22 @@ export default function ChatWindow({
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [theme, setTheme] = useState("light");
   const bottomRef = useRef(null);
   const textareaRef = useRef(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved) setTheme(saved);
+    else if (document.documentElement.classList.contains("dark")) setTheme("dark");
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.classList.toggle("dark", newTheme === "dark");
+  };
 
   const messages = chat?.messages || [];
   const modelName = models.find((m) => m.id === model)?.name || model;
@@ -166,6 +180,17 @@ export default function ChatWindow({
               <span className="hidden sm:inline">Clear Chat</span>
             </button>
           )}
+
+          {/* Theme Toggle */}
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="p-2 ml-1 rounded-xl transition-all duration-200 hover:bg-black/5 dark:hover:bg-white/5"
+            style={{ color: "var(--text-secondary)" }}
+            title="Toggle Theme"
+          >
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
         </div>
       </header>
 

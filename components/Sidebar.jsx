@@ -8,27 +8,11 @@ export default function Sidebar({
   chats, activeChatId, onSelectChat, onNewChat, onDeleteChat,
   model, models, onModelChange, onClose,
 }) {
-  const [theme, setTheme] = useState("light");
-
-  useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    if (saved) setTheme(saved);
-    else if (document.documentElement.classList.contains("dark")) setTheme("dark");
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
-  };
-
   return (
     <div
-      className="flex flex-col h-full border-r glassmorphism shadow-2xl relative"
+      className="flex flex-col h-full border-r glassmorphism shadow-2xl relative w-full"
       style={{
         borderColor: "var(--border-color)",
-        width: "280px",
       }}
     >
       {/* Header */}
@@ -139,21 +123,6 @@ export default function Sidebar({
         )}
       </div>
 
-      {/* Footer: theme toggle */}
-      <div
-        className="px-5 py-4 border-t flex items-center justify-between"
-        style={{ borderColor: "var(--border-color)", background: "var(--bg-secondary)" }}
-      >
-        <button
-          type="button"
-          onClick={toggleTheme}
-          className="flex items-center gap-2.5 text-sm font-medium transition-colors hover:text-[#10b981]"
-          style={{ color: "var(--text-secondary)" }}
-        >
-          {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-          {theme === "dark" ? "Light Mode" : "Dark Mode"}
-        </button>
-      </div>
     </div>
   );
 }
